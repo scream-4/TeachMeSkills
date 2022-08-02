@@ -10,36 +10,36 @@ public class TestMyPage {
     private static final String PATH = "D:\\TeachMeSkills\\TeachMeSkills\\SharyLane\\src\\test\\resources\\index.html";
 
     @BeforeMethod
-    public void SetUp() {
+    public void setUp() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get(PATH);
     }
 
     @Test
-    public void CheckElementOnPage() {
+    public void checkElementOnPage() {
         System.out.println(driver.findElement(By.xpath("//h1")).getText());
         System.out.println(driver.findElement(By.name("actors")).getText());
         driver.findElement(By.id("elem")).click();
     }
 
     @Test
-    public void CheckBlockName() {
+    public void checkBlockName() {
         System.out.println(driver.findElement(By.xpath("//h2")).getText());
     }
 
     @Test
-    public void CheckLinks() {
+    public void checkLinks() {
         driver.get("https://www.w3schools.com");
     }
 
     @Test
-    public void CheckTextOnPage() {
+    public void checkTextOnPage() {
         System.out.println(driver.findElement(By.xpath("//img")).getAttribute("alt"));
     }
 
     @Test
-    public void CheckHands() {
+    public void checkHands() {
         driver.findElement(By.id("rhand")).click();
         driver.findElement(By.id("lhand")).click();
     }

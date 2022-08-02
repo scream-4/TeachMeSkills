@@ -11,14 +11,14 @@ public class SignUpTest {
     WebDriver driver;
 
     @BeforeMethod
-    public void SetUp() {
+    public void setUp() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     private static final String baseUrl = "https://www.sharelane.com/cgi-bin/register.py";
 
-    private void SendZipCode(String zipCode) {
+    private void sendZipCode(String zipCode) {
         //Open url code zipcode page
         driver.get(baseUrl);
         //Input 5 digits into input field
@@ -27,7 +27,7 @@ public class SignUpTest {
         driver.findElement(By.cssSelector("[value=Continue]")).click();
     }
 
-    private void Registration(String pass, String confirmPass) {
+    private void registration(String pass, String confirmPass) {
         driver.findElement(By.name("first_name")).sendKeys("stef");
         driver.findElement(By.name("last_name")).sendKeys("lilk");
         driver.findElement(By.name("email")).sendKeys("stefl1234@mail.ru");
@@ -37,16 +37,16 @@ public class SignUpTest {
     }
 
     @Test
-    public void FiveDigitsZipCodeTest() {
-        SendZipCode("90011");
+    public void fiveDigitsZipCodeTest() {
+        sendZipCode("90011");
         //add check
         WebElement registerButton = driver.findElement(By.cssSelector("[value=Register]"));
         Assert.assertTrue(registerButton.isDisplayed(), "'Register' button isn't displayed");
     }
 
     @Test
-    public void FourDigitsZipCodeTest() {
-        SendZipCode("9001");
+    public void fourDigitsZipCodeTest() {
+        sendZipCode("9001");
         //add check
         WebElement errorMessage = driver.findElement(By.className("error_message"));
         boolean isErrorDisplayed = errorMessage.isDisplayed();
@@ -55,8 +55,8 @@ public class SignUpTest {
     }
 
     @Test
-    public void SixDigitsZipCodeTest() {
-        SendZipCode("900111");
+    public void sixDigitsZipCodeTest() {
+        sendZipCode("900111");
         //add check
         WebElement errorMessage = driver.findElement(By.className("error_message"));
         boolean isErrorDisplayed = errorMessage.isDisplayed();
@@ -64,9 +64,9 @@ public class SignUpTest {
     }
 
     @Test
-    public void PasswordThreeDigits() {
-        SendZipCode("90011");
-        Registration("123", "123");
+    public void passwordThreeDigits() {
+        sendZipCode("90011");
+        registration("123", "123");
         //add check
         WebElement errorMessage = driver.findElement(By.className("error_message"));
         boolean isErrorDisplayed = errorMessage.isDisplayed();
@@ -74,9 +74,9 @@ public class SignUpTest {
     }
 
     @Test
-    public void DifferentPassword() {
-        SendZipCode("90011");
-        Registration("1234", "123456");
+    public void differentPassword() {
+        sendZipCode("90011");
+        registration("1234", "123456");
         //add check
         WebElement errorMessage = driver.findElement(By.className("error_message"));
         boolean isErrorDisplayed = errorMessage.isDisplayed();
@@ -84,15 +84,15 @@ public class SignUpTest {
     }
 
     @Test
-    public void CharactersInThePassword() {
-        SendZipCode("90011");
-        Registration("qazwsx", "qazwsx");
+    public void charactersInThePassword() {
+        sendZipCode("90011");
+        registration("qazwsx", "qazwsx");
     }
 
     @Test
-    public void LoginSystemAndAddToCart() {
-        SendZipCode("90011");
-        Registration("1234","1234");
+    public void loginSystemAndAddToCart() {
+        sendZipCode("90011");
+        registration("1234","1234");
         //save log in
         User user = new User();
         user.setEmail(driver.findElement(By.xpath("//td[text()='Email']/following-sibling::td")).getText());
